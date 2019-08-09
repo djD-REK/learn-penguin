@@ -246,16 +246,29 @@ const Word = ({
           console.log(x.current);
           if (x.current > 25) {
             console.log("Check " + color + "!");
+            // Remove the word either way, right or wrong,
+            // but if it's wrong -- 1 fish penalty
+            setColors(remove(colors, color));
+            //setCorrectWords(add(correctWords, color));
             if (texts[color] != "Malos") {
               //setCorrectWords(add(correctWords, color));
-              setColors(remove(colors, color));
+            }
+            else {
+
             }
           }
           if (x.current < -25) {
             console.log("Close " + color + "!");
-            if (true)
-              //logic for wrong choice texts[color] == "Malos")
-              setColors(remove(colors, color));
+            // Remove the word either way, right or wrong,
+            // but if it's wrong -- 1 fish penalty
+            setColors(remove(colors, color));
+
+            if (texts[color] != "Malos") { // correct choice -- removed wrong word
+              //setCorrectWords(add(correctWords, color));
+            }
+            else {
+              
+            }
           }
         }}
       >
