@@ -1,11 +1,6 @@
 import * as React from "react";
 import { useEffect, useState, useRef } from "react";
-import {
-  motion,
-  useMotionValue,
-  AnimatePresence,
-  useTransform
-} from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { findIndex, Position } from "./find-index";
 import move from "array-move";
 import { add, remove } from "./array-utils";
@@ -249,12 +244,15 @@ const Word = ({
             // Remove the word either way, right or wrong,
             // but if it's wrong -- 1 fish penalty
             setColors(remove(colors, color));
-            //setCorrectWords(add(correctWords, color));
-            if (texts[color] != "Malos") {
-              //setCorrectWords(add(correctWords, color));
-            }
-            else {
 
+            if (texts[color] != "Malos") {
+              // correct choice -- checked a correct word
+              //setCorrectWords(add(correctWords, color));
+            } else {
+              // wrong choice -- checked a wrong word
+              //visual effect(s)
+              //sound effect
+              //lose one fish (1 fish penalty)
             }
           }
           if (x.current < -25) {
@@ -263,11 +261,16 @@ const Word = ({
             // but if it's wrong -- 1 fish penalty
             setColors(remove(colors, color));
 
-            if (texts[color] != "Malos") { // correct choice -- removed wrong word
+            if (texts[color] != "Malos") {
+              // correct choice -- closed a wrong word
+              // nothing should really happen
+            } else {
+              // wrong choice -- closed a correct word
+              // we have to complete the word anyway
               //setCorrectWords(add(correctWords, color));
-            }
-            else {
-              
+              //visual effect(s)
+              //sound effect
+              //lose one fish (1 fish penalty)
             }
           }
         }}
