@@ -50,8 +50,8 @@ const texts = {
   "#7700FE": "Malas"
 };
 const initialSpeeches = [
-  "Yes! <b>You can do it!</b> <br /> <b>¡Puedes hacerlo!</b>",
-  "Yes, we say <br /> <b>Pingüinos son bellos</b> <br /> in penguin!"
+  "Yes! You can do it! ¡Puedes hacerlo!",
+  "Yes, we say Pingüinos son bellos in penguin!"
 ];
 
 const CorrectWord = ({ color }) => {
@@ -272,6 +272,13 @@ const Speech = ({ speech, speeches, setSpeeches, i, text }) => {
     clamp: false
   });
 
+  const highlightRegExp = new RegExp(
+    /you|can|do|it|puedes|hacerlo|pingüinos|son|bellos/,
+    "gi"
+  );
+  const delineator = " ";
+  const parts = text.split(delineator);
+
   return (
     <motion.div
       className="speechContainer"
@@ -296,7 +303,11 @@ const Speech = ({ speech, speeches, setSpeeches, i, text }) => {
           }
         }}
       >
-        {text}
+        <div>
+          {parts.map(part =>
+            part.match(highlightRegExp) ? <b>{part + " "}</b> : part + " "
+          )}
+        </div>
         <motion.div
           className="speechBubble"
           aria-label="speechBubble"
