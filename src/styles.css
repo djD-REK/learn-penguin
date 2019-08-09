@@ -32,6 +32,8 @@ ul {
 }
 
 h1 {
+  padding: 5vh 0 0 0;
+  margin: 0;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -92,6 +94,14 @@ body {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(180deg, #ff008c 0%, rgb(211, 9, 225) 100%);
+  background: url(https://media.giphy.com/media/7Uf7PT9ihuiWc/giphy.gif)
+    /* image credits: https://giphy.com/gifs/penguin-7Uf7PT9ihuiWc
+     http://heard-a-goat.deviantart.com/art/Penguin-walk-gif-402234070 */
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   overflow: hidden;
   padding: 0;
   margin: 0;

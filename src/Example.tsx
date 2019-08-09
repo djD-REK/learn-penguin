@@ -19,20 +19,38 @@ const flat = {
 };
 
 // Globals
-const initialColors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF"];
+const initialColors = [
+  "#FF008C",
+  "#D309E1",
+  "#9C1AFF",
+  "#7700FF",
+  "#FF008D",
+  "#D309E0",
+  "#9C1AFE",
+  "#7700FE"
+];
 const heights = {
   "#FF008C": 60,
   "#D309E1": 80,
   "#9C1AFF": 40,
-  "#7700FF": 100
+  "#7700FF": 100,
+  "#FF008D": 60,
+  "#D309E0": 80,
+  "#9C1AFE": 40,
+  "#7700FE": 100
 };
 const texts = {
   "#FF008C": "Pingüinos",
   "#D309E1": "Bellos",
   "#9C1AFF": "Son",
-  "#7700FF": "Malos"
+  "#7700FF": "Malos",
+  "#FF008D": "Pingüinas",
+  "#D309E0": "Bellas",
+  "#9C1AFE": "Están",
+  "#7700FE": "Malas"
 };
 const initialSpeeches = [
+  "Yes! <b>You can do it!</b> <br /> <b>¡Puedes hacerlo!</b>",
   "Yes, we say <br /> <b>Pingüinos son bellos</b> <br /> in penguin!"
 ];
 
@@ -235,7 +253,9 @@ const Word = ({
           }
           if (x.current < -25) {
             console.log("Close " + color + "!");
-            if (texts[color] == "Malos") setColors(remove(colors, color));
+            if (true)
+              //logic for wrong choice texts[color] == "Malos")
+              setColors(remove(colors, color));
           }
         }}
       >
@@ -271,11 +291,12 @@ const Speech = ({ speech, speeches, setSpeeches, i, text }) => {
           console.log(x.current);
           if (x.current > 25 || x.current < -25) {
             console.log("Close Penguin!");
+            setSpeeches(add(speeches[i]));
             setSpeeches(remove(speeches, i));
           }
         }}
       >
-        Yes, we say <br /> <b>Pingüinos son bellos</b> <br /> in penguin!
+        {text}
         <motion.div
           className="speechBubble"
           aria-label="speechBubble"
@@ -370,7 +391,21 @@ export const Example = () => {
             moveWord={moveWord}
           />
         ))}
+        <hr />
       </ul>
+
+      {
+        //wrong words will go here
+        <ul>
+          {correctWords.map((color, i) => (
+            <CorrectWord
+              color={color}
+              correctWords={correctWords}
+              setCorrectWords={setCorrectWords}
+            />
+          ))}
+        </ul>
+      }
 
       {speeches.map((speech, i) => (
         <Speech
