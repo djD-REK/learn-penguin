@@ -1,0 +1,104 @@
+// Colors
+$moon1: #EDDDD4;
+$moon2: #FCFAFA;
+	
+$sun1: #FFFFFF;
+$sun2: #FFBE0B;
+$sun3: #FB5607;
+
+$animation-speed: 2.5s;
+
+.Switch {
+	position: absolute;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: #121212;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	&::before {
+		height: 1000vh;
+		width: 100vw;
+		position: absolute;
+		content: '';
+		top: 0;
+		left: 0;
+		background: linear-gradient(to bottom,  rgba(17,28,43,1) 0%,rgba(53,55,130,1) 12%,rgba(255,102,135,1) 28%,rgba(255,185,89,1) 45%,rgba(135,224,253,1) 72%,rgba(83,203,241,1) 87%,rgba(5,171,224,1) 100%); 
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111c2b', endColorstr='#05abe0',GradientType=0 ); /* IE6-9 */
+		transition: top $animation-speed ease;
+	}
+	
+	&[data-time="day"] {
+		&::before {
+			top: -900vh;
+		}
+	}
+	
+	.Toggle {
+		$width: 200px;
+		$height: $width / 2;
+		box-shadow: 0 0 10px rgba(black, .1);
+		
+		width: $width;
+		height: $height;
+		border: 5px solid rgba($moon2,.125);
+		background: rgba($moon2, .05);
+		padding: 20px;
+		position: relative;
+		border-radius: $width;
+		
+		&[data-time='day'] {
+			.Button {
+				left: $width / 2 + 20px;
+				box-shadow: 0 0 10px 10px $sun3;
+				border: 1px solid rgba($sun3, 1) !important;
+				top: 25px;
+				
+				&::before {
+					opacity: 1;
+				}
+			}
+		}
+		
+		.Button {
+			height: $height - 10px;
+			width: $width / 2 - 10px;
+			background: yellow;
+			border-radius: $width;
+			position: absolute;
+			pointer-events: none;
+			top: 20px;
+			left: 20px;
+			transition: left $animation-speed ease, box-shadow $animation-speed ease, border $animation-speed ease, top $animation-speed ease;
+			background: $moon1; /* Old browsers */
+			background: linear-gradient(135deg,  rgba($moon1,1) 0%,rgba($moon2,1) 50%,rgba($moon1,1) 51%,rgba($moon2,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+			box-shadow: 0 0 25px 5px $moon1;
+			border: 5px solid rgba($moon1, .5);
+			
+			&::before {
+				content: '';
+				height: $height - 1;
+				width: $width / 2 - 1;
+				background: red;
+				top: -5px;
+				left: -5px;
+				position: absolute;
+				border-radius: $width;
+				/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fefcea+0,f1da36+100;Gold+3D */
+				background: $sun1; /* Old browsers */
+				background: radial-gradient(ellipse at center, rgba($sun1,1) 0%, rgba($sun2,1) 50%, rgba($sun3,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#f1da36',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+				transition: opacity $animation-speed ease;
+				opacity: 0;
+
+			}
+
+		}
+	}
+}
