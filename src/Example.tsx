@@ -398,26 +398,41 @@ export const Example = () => {
     toggle: () => {}
   };
 
+  const [checked, setChecked] = useState(false);
+  const [time, setTime] = useState("night");
+
+  function toggleDayNight() {
+    if (checked) {
+      console.log("checked was true");
+      //setChecked(false);
+      //setTime("day");
+    } else {
+      console.log("checked was false");
+      //setChecked(true);
+      //setTime("night");
+    }
+  }
+
   return (
     <div>
-      <label htmlFor="small-radius-switch">
-        <span>Thick switch with smaller handle radius</span>
-        <Switch
-          checked={/*this.state.checked*/ false}
-          onChange={/*this.handleChange*/ false}
-          handleDiameter={28}
-          offColor="#08f"
-          onColor="#0ff"
-          offHandleColor="#0ff"
-          onHandleColor="#08f"
-          height={40}
-          width={70}
-          className="react-switch"
-          id="small-radius-switch"
-        />
-      </label>
       <ul>
         <h1>Penguins are Beautiful</h1>
+        <label htmlFor="small-radius-switch">
+          <span>Thick switch with smaller handle radius</span>
+          <Switch
+            checked={checked}
+            onChange={console.log("Change detected in react-switch")}
+            handleDiameter={28}
+            offColor="#08f"
+            onColor="#0ff"
+            offHandleColor="#0ff"
+            onHandleColor="#08f"
+            height={40}
+            width={70}
+            className="react-switch"
+            id="small-radius-switch"
+          />
+        </label>
         {correctWords.map((color, i) => (
           <CorrectWord
             color={color}
