@@ -4,6 +4,7 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { findIndex, Position } from "./find-index";
 import move from "array-move";
 import { add, remove } from "./array-utils";
+import Switch from "react-switch";
 // END IMPORT
 
 // Spring configs
@@ -392,8 +393,29 @@ export const Example = () => {
     clamp: false
   });
 
+  const defaultContextData = {
+    dark: false,
+    toggle: () => {}
+  };
+
   return (
     <div>
+      <label htmlFor="small-radius-switch">
+        <span>Thick switch with smaller handle radius</span>
+        <Switch
+          checked={/*this.state.checked*/ false}
+          onChange={/*this.handleChange*/ false}
+          handleDiameter={28}
+          offColor="#08f"
+          onColor="#0ff"
+          offHandleColor="#0ff"
+          onHandleColor="#08f"
+          height={40}
+          width={70}
+          className="react-switch"
+          id="small-radius-switch"
+        />
+      </label>
       <ul>
         <h1>Penguins are Beautiful</h1>
         {correctWords.map((color, i) => (
