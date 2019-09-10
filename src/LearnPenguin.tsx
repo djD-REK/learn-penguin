@@ -230,8 +230,8 @@ const Word = ({
         dragConstraints={{ left: 0, right: 0 }}
         onDragEnd={() => {
           setDragging(false)
-          console.log(x.current)
-          if (x.current > 25) {
+          console.log(x.get())
+          if (x.get() > 25) {
             console.log("Check " + color + "!")
             // Remove the word either way, right or wrong,
             // but if it's wrong -- 1 fish penalty
@@ -247,7 +247,7 @@ const Word = ({
               //lose one fish (1 fish penalty)
             }
           }
-          if (x.current < -25) {
+          if (x.get() < -25) {
             console.log("Close " + color + "!")
             // Remove the word either way, right or wrong,
             // but if it's wrong -- 1 fish penalty
@@ -305,8 +305,8 @@ const Speech = ({ speech, speeches, setSpeeches, i, text }) => {
           x
         }}
         onDragEnd={() => {
-          console.log(x.current)
-          if (x.current > 25 || x.current < -25) {
+          console.log(x.get())
+          if (x.get() > 25 || x.get() < -25) {
             console.log("Close Penguin!")
             setSpeeches(add(speeches[i]))
             setSpeeches(remove(speeches, i))
