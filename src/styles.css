@@ -23,12 +23,27 @@ li {
   list-style: none;
   padding: 0;
   margin: 0;
-  color: black;
 }
 
 ul {
-  position: relative;
-  width: 300px;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.word {
+  background: white;
+  background: transparent;
+  border-radius: 30px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
 }
 
 h1 {
@@ -94,7 +109,8 @@ body {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(180deg, #ff008c 0%, rgb(211, 9, 225) 100%);
-  background: url(https://media.giphy.com/media/7Uf7PT9ihuiWc/giphy.gif)
+  /* Animated penguin background to use for clicking on home button */
+  /* background: url(https://media.giphy.com/media/7Uf7PT9ihuiWc/giphy.gif) */ 
     /* image credits: https://giphy.com/gifs/penguin-7Uf7PT9ihuiWc
      http://heard-a-goat.deviantart.com/art/Penguin-walk-gif-402234070 */
     no-repeat center center fixed;
@@ -238,25 +254,6 @@ body {
   justify-content: center;
   align-items: center;
   padding-left: calc(50% - 36px / 2);
-}
-
-.box {
-  background: white;
-  background: transparent;
-  border-radius: 30px;
-  width: 300px;
-  height: 38px;
-  height: 100%;
-  position: absolute;
-  top: calc(50% - 150px / 2);
-  top: 0;
-  left: calc(50% - 150px / 2);
-  left: calc(50% - 36px / 2);
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 36px;
 }
 
 .progress-icon {

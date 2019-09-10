@@ -1,18 +1,18 @@
-import * as React from "react";
-import { useEffect, useState, useRef } from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
-import { findIndex, Position } from "./find-index";
-import move from "array-move";
-import { add, remove } from "./array-utils";
-import Switch from "react-switch";
+import * as React from "react"
+import { useEffect, useState, useRef } from "react"
+import { motion, useMotionValue, useTransform } from "framer-motion"
+import { findIndex, Position } from "./find-index"
+import move from "array-move"
+import { add, remove } from "./array-utils"
+import Switch from "react-switch"
 // END IMPORT
 
 // Spring configs
-const onTop = { zIndex: 1 };
+const onTop = { zIndex: 1 }
 const flat = {
   zIndex: 0,
   transition: { delay: 0.3 }
-};
+}
 
 // Globals
 const initialColors = [
@@ -24,7 +24,7 @@ const initialColors = [
   "#D309E0",
   "#9C1AFE",
   "#7700FE"
-];
+]
 const heights = {
   "#FF008C": 60,
   "#D309E1": 80,
@@ -34,7 +34,7 @@ const heights = {
   "#D309E0": 80,
   "#9C1AFE": 40,
   "#7700FE": 100
-};
+}
 const texts = {
   "#FF008C": "Pingüinos",
   "#D309E1": "Bellos",
@@ -44,22 +44,22 @@ const texts = {
   "#D309E0": "Bellas",
   "#9C1AFE": "Están",
   "#7700FE": "Malas"
-};
+}
 const initialSpeeches = [
-  "Yes! You can do it! ¡Puedes hacerlo!",
-  "Yes, we say Pingüinos son bellos in penguin!"
-];
+  "Yes! You can do it! ¡Puedes hacerlo!"
+  //"Yes, we say Pingüinos son bellos in penguin!"
+]
 
 const CorrectWord = ({ color }) => {
-  const x = useMotionValue(0);
-  const xInput = [-50, 1, 50];
+  const x = useMotionValue(0)
+  const xInput = [-50, 1, 50]
   const background = useTransform(x, xInput, [
     //"linear-gradient(180deg, #00000 0%, #ff008c 100%)",
     "linear-gradient(180deg,  rgb(211, 9, 225) 0%, #ff008c 100%)",
     //    "linear-gradient(180deg, #7700ff 0%, {rgb(68, 0, 255)} 0%)",
     "linear-gradient(180deg, " + color + " 0%, " + color + " 100%)",
     "linear-gradient(180deg, rgb(230, 255, 0) 0%, rgb(3, 209, 0) 100%)"
-  ]);
+  ])
 
   return (
     <motion.li
@@ -71,20 +71,11 @@ const CorrectWord = ({ color }) => {
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 1.12 }}
       dragConstraints={{ left: 0, right: 0 }}
-      onDragEnd={() => {
-        console.log(x.current);
-        if (x.current > 25) {
-          console.log("Re-Check " + color + "!");
-        }
-        if (x.current < -25) {
-          console.log("Re-Close " + color + "!");
-        }
-      }}
     >
       {texts[color]}
     </motion.li>
-  );
-};
+  )
+}
 
 const Word = ({
   color,
@@ -96,48 +87,48 @@ const Word = ({
   moveWord,
   i
 }) => {
-  const [isDragging, setDragging] = useState(false);
+  const [isDragging, setDragging] = useState(false)
 
   // We'll use a `ref` to access the DOM element that the `motion.li` produces.
   // This will allow us to measure its height and position, which will be useful to
   // decide when a dragging element should switch places with its siblings.
-  const ref = useRef(null);
+  const ref = useRef(null)
 
   // By manually creating a reference to `dragOriginY` we can manipulate this value
   // if the user is dragging this DOM element while the drag gesture is active to
   // compensate for any movement as the words are re-positioned.
-  const dragOriginY = useMotionValue(0);
+  const dragOriginY = useMotionValue(0)
 
   // Update the measured position of the word so we can calculate when we should rearrange.
   useEffect(() => {
     setPosition(i, {
       height: ref.current.offsetHeight,
       top: ref.current.offsetTop
-    });
-  });
+    })
+  })
 
   // END OLD ITEM
 
   // START PROGRESS SWIPES
-  const x = useMotionValue(0);
-  const xInput = [-50, 1, 50];
+  const x = useMotionValue(0)
+  const xInput = [-50, 1, 50]
   const background = useTransform(x, xInput, [
     //"linear-gradient(180deg, #00000 0%, #ff008c 100%)",
     "linear-gradient(180deg,  rgb(211, 9, 225) 0%, #ff008c 100%)",
     //    "linear-gradient(180deg, #7700ff 0%, {rgb(68, 0, 255)} 0%)",
     "linear-gradient(180deg, " + color + " 0%, " + color + " 100%)",
     "linear-gradient(180deg, rgb(230, 255, 0) 0%, rgb(3, 209, 0) 100%)"
-  ]);
+  ])
   const transparency = useTransform(x, xInput, [
     "linear-gradient(180deg, #ff008c 0%, rgb(211, 9, 225) 100%)",
     "linear-gradient(180deg, #7700ff 0%, rgb(68, 0, 255) 100%)",
     "linear-gradient(180deg, rgb(230, 255, 0) 0%, rgb(3, 209, 0) 100%)"
-  ]);
+  ])
   const progressBackground = useTransform(x, xInput, [
     "linear-gradient(180deg, #ffffff 0%, #ffffff 100%)",
     "linear-gradient(180deg, " + color + " 0%, " + color + " 100%)",
     "linear-gradient(180deg, #ffffff 0%, #ffffff 100%)"
-  ]);
+  ])
   const progressColor = useTransform(x, xInput, [
     //"rgb(211, 9, 225)",
     //        "rgb(68, 0, 255)",
@@ -145,17 +136,17 @@ const Word = ({
     "#ff008c",
     color,
     "rgb(3, 209, 0)"
-  ]);
-  const opacity = useTransform(x, xInput, [0.0, 0.0, 0.0]);
+  ])
+  const opacity = useTransform(x, xInput, [0.0, 0.0, 0.0])
 
-  const tickPath = useTransform(x, [1, 25], [0, 1]);
-  const crossPathA = useTransform(x, [-1, -12], [0, 1]);
-  const crossPathB = useTransform(x, [-13, -25], [0, 1]);
+  const tickPath = useTransform(x, [1, 25], [0, 1])
+  const crossPathA = useTransform(x, [-1, -12], [0, 1])
+  const crossPathB = useTransform(x, [-13, -25], [0, 1])
 
-  const constraintsRef = useRef(null);
+  const constraintsRef = useRef(null)
   const rotateY = useTransform(x, [-200, 0, 200], [-45, 0, 45], {
     clamp: false
-  });
+  })
 
   // END PROGRESS SWIPES
 
@@ -176,7 +167,7 @@ const Word = ({
       dragElastic={1}
       onDragStart={() => setDragging(true)}
       onDragEnd={() => {
-        setDragging(false);
+        setDragging(false)
       }}
       onDrag={(e, { point }) => moveWord(i, point.y)}
       positionTransition={({ delta }) => {
@@ -184,13 +175,13 @@ const Word = ({
           // If we're dragging, we want to "undo" the words movement within the list
           // by manipulating its dragOriginY. This will keep the word under the cursor,
           // even though it's jumping around the DOM.
-          dragOriginY.set(dragOriginY.get() + delta.y);
+          dragOriginY.set(dragOriginY.get() + delta.y)
         }
 
         // If `positionTransition` is a function and returns `false`, it's telling
         // Motion not to animate from its old position into its new one. If we're
         // dragging, we don't want any animation to occur.
-        return !isDragging;
+        return !isDragging
       }}
     >
       <motion.span
@@ -233,18 +224,18 @@ const Word = ({
       </motion.span>
 
       <motion.div
-        className="box"
+        className="word"
         style={{ x }}
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         onDragEnd={() => {
-          setDragging(false);
-          console.log(x.current);
+          setDragging(false)
+          console.log(x.current)
           if (x.current > 25) {
-            console.log("Check " + color + "!");
+            console.log("Check " + color + "!")
             // Remove the word either way, right or wrong,
             // but if it's wrong -- 1 fish penalty
-            setColors(remove(colors, color));
+            setColors(remove(colors, color))
 
             if (texts[color] != "Malos") {
               // correct choice -- checked a correct word
@@ -257,10 +248,10 @@ const Word = ({
             }
           }
           if (x.current < -25) {
-            console.log("Close " + color + "!");
+            console.log("Close " + color + "!")
             // Remove the word either way, right or wrong,
             // but if it's wrong -- 1 fish penalty
-            setColors(remove(colors, color));
+            setColors(remove(colors, color))
 
             if (texts[color] != "Malos") {
               // correct choice -- closed a wrong word
@@ -279,22 +270,24 @@ const Word = ({
         {texts[color]}
       </motion.div>
     </motion.li>
-  );
-};
+  )
+}
 
 const Speech = ({ speech, speeches, setSpeeches, i, text }) => {
-  const constraintsRef = useRef(null);
-  const x = useMotionValue(0);
+  const constraintsRef = useRef(null)
+  const x = useMotionValue(0)
   const rotateY = useTransform(x, [-200, 0, 200], [-45, 0, 45], {
     clamp: false
-  });
+  })
 
+  // Bold encouragements and the correct words in the speech bubble
+  // This regular expression is a mock up for later bolding using .map()
   const highlightRegExp = new RegExp(
     /you|can|do|it|puedes|hacerlo|pingüinos|son|bellos/,
     "gi"
-  );
-  const delineator = " ";
-  const parts = text.split(delineator);
+  )
+  const delineator = " "
+  const parts = text.split(delineator)
 
   return (
     <motion.div
@@ -312,16 +305,18 @@ const Speech = ({ speech, speeches, setSpeeches, i, text }) => {
           x
         }}
         onDragEnd={() => {
-          console.log(x.current);
+          console.log(x.current)
           if (x.current > 25 || x.current < -25) {
-            console.log("Close Penguin!");
-            setSpeeches(add(speeches[i]));
-            setSpeeches(remove(speeches, i));
+            console.log("Close Penguin!")
+            setSpeeches(add(speeches[i]))
+            setSpeeches(remove(speeches, i))
           }
         }}
       >
         <div>
-          {parts.map(part =>
+          {parts.map((
+            part // Bold encouragements & correct words
+          ) =>
             part.match(highlightRegExp) ? <b>{part + " "}</b> : part + " "
           )}
         </div>
@@ -364,75 +359,62 @@ const Speech = ({ speech, speeches, setSpeeches, i, text }) => {
         </motion.div>
       </motion.div>
     </motion.div>
-  );
-};
+  )
+}
 
-export const Example = () => {
-  const [colors, setColors] = useState(initialColors);
-  const [correctWords, setCorrectWords] = useState([]);
+export const LearnPenguin = () => {
+  const [colors, setColors] = useState(initialColors)
+  const [correctWords, setCorrectWords] = useState([])
   //  const [texts, setTexts] = useState(initialTexts);
-  const [speeches, setSpeeches] = useState(initialSpeeches);
+  const [speeches, setSpeeches] = useState(initialSpeeches)
 
   // We need to collect an array of height and position data for all of this component's
   // `Word` children, so we can later us that in calculations to decide when a dragging
   // `Word` should swap places with its siblings.
-  const positions = useRef<Position[]>([]).current;
-  const setPosition = (i: number, offset: Position) => (positions[i] = offset);
+  const positions = useRef<Position[]>([]).current
+  const setPosition = (i: number, offset: Position) => (positions[i] = offset)
 
   // Find the ideal index for a dragging word based on its position in the array, and its
   // current drag offset. If it's different to its current index, we swap this word with that
   // sibling.
   const moveWord = (i: number, dragOffset: number) => {
-    const targetIndex = findIndex(i, dragOffset, positions);
-    if (targetIndex !== i) setColors(move(colors, i, targetIndex));
-  };
+    const targetIndex = findIndex(i, dragOffset, positions)
+    if (targetIndex !== i) setColors(move(colors, i, targetIndex))
+  }
 
-  const constraintsRef = useRef(null);
-  const x = useMotionValue(0);
+  const constraintsRef = useRef(null)
+  const x = useMotionValue(0)
   const rotateY = useTransform(x, [-200, 0, 200], [-45, 0, 45], {
     clamp: false
-  });
+  })
 
   const defaultContextData = {
     dark: false,
     toggle: () => {}
-  };
+  }
 
-  const [checked, setChecked] = useState(false);
-  const [time, setTime] = useState("night");
+  const [checked, setChecked] = useState(false)
+  const [time, setTime] = useState("night")
 
   function toggleDayNight() {
     if (checked) {
-      console.log("checked was true");
+      console.log("checked was true")
       //setChecked(false);
       //setTime("day");
     } else {
-      console.log("checked was false");
+      console.log("checked was false")
       //setChecked(true);
       //setTime("night");
     }
   }
 
   return (
-    <div>
-      <ul>
-        <h1>Penguins are Beautiful</h1>
-        <label htmlFor="small-radius-switch">
-          <span>Thick switch with smaller handle radius</span>
-          <Switch
-            checked={checked}
-            onChange={console.log("Change detected in react-switch")}
-            handleDiameter={28}
-            offColor="#08f"
-            onColor="#0ff"
-            offHandleColor="#0ff"
-            onHandleColor="#08f"
-            height={40}
-            width={70}
-            className="react-switch"
-            id="small-radius-switch"
-          />
-        </label>
+    <div class="wrapper">
+      <div>
+        <h1>Penguins are beautiful.</h1>
+      </div>
+
+      <div>
         {correctWords.map((color, i) => (
           <CorrectWord
             color={color}
@@ -440,10 +422,10 @@ export const Example = () => {
             setCorrectWords={setCorrectWords}
           />
         ))}
-      </ul>
+      </div>
+      <hr />
 
       <ul>
-        <hr />
         {colors.map((color, i) => (
           <Word
             key={color}
@@ -455,11 +437,10 @@ export const Example = () => {
             moveWord={moveWord}
           />
         ))}
-        <hr />
       </ul>
+      <hr />
 
-      {
-        //wrong words will go here
+      <div class="wrongWords">
         <ul>
           {correctWords.map((color, i) => (
             <CorrectWord
@@ -469,59 +450,63 @@ export const Example = () => {
             />
           ))}
         </ul>
-      }
+      </div>
 
-      {speeches.map((speech, i) => (
-        <Speech
-          key={speech}
-          i={i}
-          speech={speech}
-          speeches={speeches}
-          setSpeeches={setSpeeches}
-          text={speeches[i]}
-        />
-      ))}
+      <div class="homeButton">
+        <motion.button
+          className="homeToAntarctica"
+          whileHover={{
+            scale: 2,
+            rotate: [5, -5, 5, 0, 5, -5, 5, 0, -2.5, 0]
+            //background: "#265fb5"
+            //background: "white"
+          }}
+          whileTap={{
+            scale: 16,
+            rotate: 0,
+            x: 400,
+            y: -400
 
-      <motion.button
-        className="homeToAntarctica"
-        whileHover={{
-          scale: 2,
-          rotate: [5, -5, 5, 0, 5, -5, 5, 0, -2.5, 0]
-          //background: "#265fb5"
-          //background: "white"
-        }}
-        whileTap={{
-          scale: 16,
-          rotate: 0,
-          x: 400,
-          y: -400
+            //background: "transparent",
+            //background: "#265fb5"
+          }}
+          animate={{
+            scale: [0.9, 0.91, 0.92, 0.93, 0.94, 0.95, 0.93, 0.92, 0.91, 0.9],
+            rotate: 0
+          }}
+          transition={{
+            duration: 3,
+            ease: "easeInOut",
+            times: [0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25],
+            //loop: Infinity,
+            repeatDelay: 0
+          }}
+          drag="y"
+          onDragEnd={() => {
+            //setColors.setState(initialColors);
+            //setTexts = useState(initialTexts);
+            //setSpeeches = useState(initialSpeeches);
+            window.location.reload()
+          }}
+        >
+          <span role="img" aria-label="Home to Antarctica">
+            🇦🇶
+          </span>
+        </motion.button>
+      </div>
 
-          //background: "transparent",
-          //background: "#265fb5"
-        }}
-        animate={{
-          scale: [0.9, 0.91, 0.92, 0.93, 0.94, 0.95, 0.93, 0.92, 0.91, 0.9],
-          rotate: 0
-        }}
-        transition={{
-          duration: 3,
-          ease: "easeInOut",
-          times: [0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25],
-          //loop: Infinity,
-          repeatDelay: 0
-        }}
-        drag="y"
-        onDragEnd={() => {
-          //setColors.setState(initialColors);
-          //setTexts = useState(initialTexts);
-          //setSpeeches = useState(initialSpeeches);
-          window.location.reload();
-        }}
-      >
-        <span role="img" aria-label="Home to Antarctica">
-          🇦🇶
-        </span>
-      </motion.button>
+      <div>
+        {speeches.map((speech, i) => (
+          <Speech
+            key={speech}
+            i={i}
+            speech={speech}
+            speeches={speeches}
+            setSpeeches={setSpeeches}
+            text={speech}
+          />
+        ))}
+      </div>
     </div>
-  );
-};
+  )
+}

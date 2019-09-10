@@ -1,10 +1,10 @@
-import * as React from "react";
-import { render } from "react-dom";
-import { Example } from "./Example";
+import * as React from "react"
+import { render } from "react-dom"
+import { LearnPenguin } from "./LearnPenguin"
 
-import "./styles.css";
-import "./day-night-toggle.scss";
+import "./styles.css"
+import "./day-night-toggle.scss"
 
-const App = () => <Example />;
+const App = () => <LearnPenguin />
 
-render(<App />, document.getElementById("root"));
+render(<App />, document.getElementById("root"))
