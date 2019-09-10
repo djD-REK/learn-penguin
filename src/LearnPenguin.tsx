@@ -396,6 +396,7 @@ export const LearnPenguin = () => {
   const [checked, setChecked] = useState(false)
   const [time, setTime] = useState("night")
 
+  // mock-up for day/night toggle
   function toggleDayNight() {
     if (checked) {
       console.log("checked was true")
@@ -410,11 +411,11 @@ export const LearnPenguin = () => {
 
   return (
     <div class="wrapper">
-      <div>
+      <div class="penguinSentence">
         <h1>Penguins are beautiful.</h1>
       </div>
 
-      <div>
+      <div class="correctWords">
         {correctWords.map((color, i) => (
           <CorrectWord
             color={color}
@@ -423,21 +424,24 @@ export const LearnPenguin = () => {
           />
         ))}
       </div>
+
       <hr />
 
-      <ul>
-        {colors.map((color, i) => (
-          <Word
-            key={color}
-            i={i}
-            color={color}
-            colors={colors}
-            setPosition={setPosition}
-            setColors={setColors}
-            moveWord={moveWord}
-          />
-        ))}
-      </ul>
+      <div class="gameboard">
+        <ul>
+          {colors.map((color, i) => (
+            <Word
+              key={color}
+              i={i}
+              color={color}
+              colors={colors}
+              setPosition={setPosition}
+              setColors={setColors}
+              moveWord={moveWord}
+            />
+          ))}
+        </ul>
+      </div>
       <hr />
 
       <div class="wrongWords">
@@ -495,7 +499,7 @@ export const LearnPenguin = () => {
         </motion.button>
       </div>
 
-      <div>
+      <div class="speeches">
         {speeches.map((speech, i) => (
           <Speech
             key={speech}
