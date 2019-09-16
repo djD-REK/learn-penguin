@@ -448,6 +448,7 @@ export const LearnPenguin = () => {
         <ul>
           {correctWords.map((color, i) => (
             <CorrectWord
+              key={color}
               color={color}
               correctWords={correctWords}
               setCorrectWords={setCorrectWords}
